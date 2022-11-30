@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply px-1 py-2 outline-0 border-0 border-b-2
+  }
+
+  .button-primary {
+    @apply px-3 py-1 bg-cornflower rounded text-white w-max h-max hover:bg-dark-cornflowerblue transition-colors cursor-pointer
+  }
+
+  .button-link {
+    @apply w-max h-max underline text-blue-700 py-1 hover:text-blue-900 transition-colors cursor-pointer
+  }
+}
