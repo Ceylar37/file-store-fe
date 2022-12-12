@@ -17,7 +17,8 @@ export const getStaticProps: GetStaticProps = async () => {
       openapi: '3.0.0',
       info: {
         title: 'NextJS Swagger',
-        version: '0.1.0',
+        description:
+          '<h2><b>base url: https://file-store-fe.vercel.app/api/</b></h2>',
       },
     },
     apiFolder: 'src/pages/api',

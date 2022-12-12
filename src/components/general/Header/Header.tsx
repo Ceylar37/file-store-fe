@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <>
-      <div className='w-screen bg-slate-500 flex items-center justify-between px-10 md:px-20 py-2.5 md:py-5'>
+      <div className='w-screen h-max bg-slate-500 flex items-center justify-between px-10 md:px-20 py-2.5 md:py-5'>
         <h1 className='text-white font-bold text-xl w-max'>File Store</h1>
         {/*{!isLoading && error ? (*/}
         {/*  <button className='button-primary' onClick={() => setIsOpen(true)}>*/}

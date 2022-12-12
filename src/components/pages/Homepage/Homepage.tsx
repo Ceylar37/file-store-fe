@@ -4,6 +4,8 @@ import Head from 'next/head';
 
 import { useMyFilesQuery } from '@store/reducers/fs/api';
 
+import { getMainLayout } from '@components/layouts/MainLayout';
+
 const Homepage = () => {
   const { data, error } = useMyFilesQuery();
 
@@ -17,5 +19,7 @@ const Homepage = () => {
     </>
   );
 };
+
+Homepage.getLayout = getMainLayout;
 
 export default Homepage;
