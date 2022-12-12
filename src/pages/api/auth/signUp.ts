@@ -83,7 +83,6 @@ export default async function handler(
     });
     return;
   }
-
   const hashPassword = await bcrypt.hash(password, 5);
   const createdUser = await userService.create({
     login: login,
