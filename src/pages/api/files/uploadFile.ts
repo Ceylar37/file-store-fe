@@ -91,6 +91,10 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const body = req.body;
+    if (!body.files.file) {
+      res.status(400).json({ message: 'file is required' });
+      return;
+    }
     const createdFileInfo = await fsService.createFile({
       file: body.files.file,
       userId: user.id,
@@ -99,7 +103,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     });
     res.status(200).json(createdFileInfo);
   } catch (e) {
-    console.error(e);
     if (e && typeof e === 'object' && 'message' in e) {
       res.status(400).json({ message: e.message });
     } else {

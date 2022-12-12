@@ -1,7 +1,7 @@
 import { baseApiUrl } from '@constants/api';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Profile, ProfileCreds } from '@store/reducers/auth/types';
+import { ProfileCreds } from '@store/reducers/auth/types';
 
 export interface AuthPayload {
   login: string;
@@ -13,7 +13,6 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseApiUrl}/auth`,
   }),
-  tagTypes: ['myFiles'],
   endpoints: build => ({
     login: build.mutation<ProfileCreds, AuthPayload>({
       query: payload => ({
@@ -21,10 +20,9 @@ export const authApi = createApi({
         method: 'POST',
         body: payload,
       }),
-      transformErrorResponse: (response, meta, arg) => {
+      transformErrorResponse: response => {
         return response.data;
       },
-      invalidatesTags: ['myFiles'],
     }),
     register: build.mutation<ProfileCreds, AuthPayload>({
       query: payload => ({
@@ -32,7 +30,6 @@ export const authApi = createApi({
         method: 'POST',
         body: payload,
       }),
-      invalidatesTags: ['myFiles'],
     }),
   }),
 });

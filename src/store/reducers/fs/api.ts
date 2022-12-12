@@ -17,11 +17,15 @@ export const fsApi = createApi({
       });
     },
   }),
-  tagTypes: ['myFiles'],
+  tagTypes: ['myFiles', 'dir'],
   endpoints: build => ({
     myFiles: build.query<Fs, void>({
-      query: () => `my`,
+      query: () => 'my',
       providesTags: ['myFiles'],
+    }),
+    directoryContent: build.query<Fs, string>({
+      query: id => `directoryContent/${id}`,
+      providesTags: (result, error, id) => [{ type: 'dir', id }],
     }),
   }),
 });

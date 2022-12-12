@@ -1,3 +1,6 @@
+import { baseApiUrl } from '@constants/api';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import DocumentIcon from 'public/icons/document.svg';
 import FolderIcon from 'public/icons/folder.svg';
 import React, { FC } from 'react';
@@ -15,25 +18,27 @@ const DirContent: FC<DirContentProps> = props => {
     <div className='p-5'>
       <div className='flex flex-wrap my-2 gap-3'>
         {fs.directories.map(dir => (
-          <div
-            key={dir.id}
-            className='flex items-center gap-2 bg-blue-200 hover:bg-blue-300 transition-colors duration-200 p-2 rounded text-xl cursor-pointer'
-          >
+          <div className='flex items-center gap-2 bg-blue-200 hover:bg-blue-300 transition-colors duration-200 p-2 rounded text-xl cursor-pointer'>
             <FolderIcon width={20} height={20} />
             {dir.name}
           </div>
         ))}
       </div>
-      <hr />
+      {fs.directories.length && fs.files.length && <hr />}
       <div className='flex flex-wrap my-2 gap-3'>
         {fs.files.map(file => (
-          <div
+          <a
             key={file.id}
-            className='flex items-center gap-2 bg-purple-200 hover:bg-purple-300 transition-colors duration-200 p-2 rounded text-xl cursor-pointer'
+            download
+            href={`${baseApiUrl}/files/read/${localStorage.getItem('token')}/${
+              file.id
+            }/${file.name}`}
           >
-            <DocumentIcon width={20} height={20} />
-            {file.name}
-          </div>
+            <div className='flex items-center gap-2 bg-purple-200 hover:bg-purple-300 transition-colors duration-200 p-2 rounded text-xl cursor-pointer'>
+              <DocumentIcon width={20} height={20} />
+              {file.name}
+            </div>
+          </a>
         ))}
       </div>
     </div>

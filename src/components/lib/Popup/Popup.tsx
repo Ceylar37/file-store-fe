@@ -37,7 +37,9 @@ const Popup: FC<PopupProps> = props => {
         }
       )}
     >
-      <span className='absolute top-5 right-5 text-xl font-extrabold'>x</span>
+      <span className='absolute top-5 right-5 text-xl font-extrabold sm:hidden cursor-pointer'>
+        x
+      </span>
       <div
         className='w-full h-full bg-white opacity-100 md:w-max md:h-max'
         ref={ref}

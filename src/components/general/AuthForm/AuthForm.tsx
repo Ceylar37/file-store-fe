@@ -10,7 +10,9 @@ import React, {
 } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useAppDispatch } from '@store/hooks';
 import { useLoginMutation } from '@store/reducers/auth/api';
+import { fsApi } from '@store/reducers/fs/api';
 
 import { HttpError } from '../../../types';
 
@@ -27,7 +29,9 @@ interface AuthFormProps {
 const AuthForm: FC<AuthFormProps> = props => {
   const { setIsOpen, isOpen } = props;
 
-  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+
+  const [login, { isLoading }] = useLoginMutation();
   const [error, setError] = useState('');
   const close = useCallback(() => setIsOpen(false), []);
 
@@ -36,7 +40,7 @@ const AuthForm: FC<AuthFormProps> = props => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({
-    defaultValues: { login: 'login2', password: 'password' },
+    defaultValues: { login: 'test__login', password: 'password' },
   });
 
   const onSubmit = async (data: FormFields) => {
@@ -48,6 +52,8 @@ const AuthForm: FC<AuthFormProps> = props => {
     if ('data' in response) {
       const data = response.data;
       localStorage.setItem('token', data.token);
+      dispatch(fsApi.util.invalidateTags(['myFiles']));
+      close();
     }
   };
 
@@ -63,6 +69,7 @@ const AuthForm: FC<AuthFormProps> = props => {
             'border-b-red-700': errors.login,
           })}
           {...register('login', { required: true })}
+          disabled={isLoading}
         />
         <input
           placeholder='Password'
@@ -71,11 +78,15 @@ const AuthForm: FC<AuthFormProps> = props => {
             'border-b-red-700': errors.login,
           })}
           {...register('password', { required: true })}
+          autoComplete='on'
+          disabled={isLoading}
         />
-        <button type='submit' className='button-primary'>
+        <button type='submit' className='button-primary' disabled={isLoading}>
           Login
         </button>
-        <button className='button-link'>Registration</button>
+        <button className='button-link' disabled={isLoading}>
+          Registration
+        </button>
       </form>
     </Popup>
   );

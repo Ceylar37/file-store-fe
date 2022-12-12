@@ -12,10 +12,12 @@ const Homepage = () => {
   return (
     <>
       <Head>
-        <title>Authorization</title>
+        <title>File Store</title>
       </Head>
       {!data && !error && <Loader />}
-      {data && <DirContent fs={data} />}
+      {data && (data.files.length || data.directories.length) && (
+        <DirContent fs={data} />
+      )}
     </>
   );
 };

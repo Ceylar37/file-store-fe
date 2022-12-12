@@ -116,6 +116,7 @@ const createFile = async (dto: CreateFileDto): Promise<ReadableFileDto> => {
     throw new Error(
       `File with name: ${dto.name} already exist in this directory`
     );
+  console.log(dto);
   const oldPath = dto.file.filepath;
   const buffer = fs.readFileSync(oldPath);
   const stream = Readable.from(buffer);
