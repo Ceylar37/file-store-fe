@@ -1,18 +1,34 @@
 import Popup from '@lib/Popup';
 import classNames from 'classnames';
-import React, { useCallback, useState } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useLoginMutation } from '@store/reducers/auth/api';
+
+import { HttpError } from '../../../types';
 
 interface FormFields {
   login: string;
   password: string;
 }
 
-const AuthForm = () => {
+interface AuthFormProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const AuthForm: FC<AuthFormProps> = props => {
+  const { setIsOpen, isOpen } = props;
+
   const [login] = useLoginMutation();
-  const [isOpen, setIsOpen] = useState(true);
+  const [error, setError] = useState('');
   const close = useCallback(() => setIsOpen(false), []);
 
   const {
@@ -20,11 +36,19 @@ const AuthForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({
-    defaultValues: { login: 'test__login', password: 'password' },
+    defaultValues: { login: 'login2', password: 'password' },
   });
 
-  const onSubmit = (data: FormFields) => {
-    login(data);
+  const onSubmit = async (data: FormFields) => {
+    const response = await login(data);
+    if ('error' in response) {
+      const error = response.error as HttpError;
+      setError(error.message);
+    }
+    if ('data' in response) {
+      const data = response.data;
+      localStorage.setItem('token', data.token);
+    }
   };
 
   return (

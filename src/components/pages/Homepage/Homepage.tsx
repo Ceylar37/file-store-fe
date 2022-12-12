@@ -1,4 +1,5 @@
-import AuthForm from '@general/AuthForm/AuthForm';
+import DirContent from '@general/DirContent';
+import Loader from '@lib/Loader';
 import Head from 'next/head';
 
 import { useMyFilesQuery } from '@store/reducers/fs/api';
@@ -6,17 +7,13 @@ import { useMyFilesQuery } from '@store/reducers/fs/api';
 const Homepage = () => {
   const { data, error } = useMyFilesQuery();
 
-  if (typeof document !== 'undefined') {
-    console.log(document.cookie);
-  }
-
   return (
     <>
       <Head>
-        <title>FS</title>
+        <title>Authorization</title>
       </Head>
-      <AuthForm />
-      <div>bruh</div>
+      {!data && !error && <Loader />}
+      {data && <DirContent fs={data} />}
     </>
   );
 };

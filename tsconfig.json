@@ -25,7 +25,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@standart/*": ["src/standart/*"],
       "@store/*": ["src/store/*"],
-      "@api/*": ["src/api/*"]
+      "@api/*": ["src/api/*"],
+      "@middlewares/*": ["src/middlewares/*"]
     },
     "incremental": true
   },

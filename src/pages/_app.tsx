@@ -1,3 +1,5 @@
+import Header from '@general/Header';
+import PopupProvider from '@lib/Popup/PopupProvider';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 
@@ -7,8 +9,13 @@ import '../styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={index}>
-      <Component {...pageProps} />
-    </Provider>
+    <div className='flex h-screen w-screen'>
+      <Provider store={index}>
+        <PopupProvider>
+          <Header />
+          <Component {...pageProps} />
+        </PopupProvider>
+      </Provider>
+    </div>
   );
 }

@@ -6,12 +6,22 @@ import { Fs } from '@store/reducers/fs/types';
 export const fsApi = createApi({
   reducerPath: 'fsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseApiUrl,
-    credentials: 'include',
+    baseUrl: `${baseApiUrl}/files`,
+    fetchFn: async (input, init) => {
+      return fetch(input, {
+        ...init,
+        headers: {
+          ...init?.headers,
+          Authorization: `Bearer ${localStorage.getItem('token') ?? ''}`,
+        },
+      });
+    },
   }),
+  tagTypes: ['myFiles'],
   endpoints: build => ({
     myFiles: build.query<Fs, void>({
-      query: () => `files/my`,
+      query: () => `my`,
+      providesTags: ['myFiles'],
     }),
   }),
 });
