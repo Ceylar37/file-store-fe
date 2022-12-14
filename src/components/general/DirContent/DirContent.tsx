@@ -18,7 +18,7 @@ const DirContent: FC<DirContentProps> = props => {
     <div className='p-5'>
       <div className='flex flex-wrap my-2 gap-3'>
         {fs.directories.map(dir => (
-          <div className='flex items-center gap-2 bg-blue-200 hover:bg-blue-300 transition-colors duration-200 p-2 rounded text-xl cursor-pointer'>
+          <div key={dir.id} className='flex items-center gap-2 bg-blue-200 hover:bg-blue-300 transition-colors duration-200 p-2 rounded text-xl cursor-pointer'>
             <FolderIcon width={20} height={20} />
             {dir.name}
           </div>
