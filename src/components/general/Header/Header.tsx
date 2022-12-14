@@ -33,8 +33,6 @@ const Header = () => {
               className='hidden'
               onChange={e => {
                 if (!e.target.files || !e.target.files[0]) return;
-                console.log(e.target.files[0]);
-                debugger;
                 const formData = new FormData();
 
                 formData.append('name', e.target.files[0].name);

@@ -84,6 +84,14 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     optionsSuccessStatus: 200,
   });
 
+  const contentType = req.headers['content-type'];
+  if (!contentType || contentType.indexOf('multipart/form-data') === -1) {
+    res.status(400).json({
+      message: 'Invalid content type header',
+    });
+    return;
+  }
+
   const user = await authMiddleware(req, res);
   if (!user) {
     return;

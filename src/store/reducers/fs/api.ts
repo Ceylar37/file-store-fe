@@ -31,6 +31,9 @@ export const fsApi = createApi({
       query: payload => ({
         url: '/uploadFile',
         method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         body: payload,
       }),
       transformErrorResponse: response => {
