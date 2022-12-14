@@ -1,11 +1,13 @@
 import AuthForm from '@general/AuthForm';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
-import { useMyFilesQuery } from '@store/reducers/fs/api';
+import { useMyFilesQuery, useUploadFileMutation } from '@store/reducers/fs/api';
 
 const Header = () => {
   const { error, isLoading, refetch } = useMyFilesQuery();
   const [isOpen, setIsOpen] = useState(false);
+  const inpRef = useRef<HTMLInputElement>(null);
+  const [upload] = useUploadFileMutation();
 
   return (
     <>
@@ -16,15 +18,41 @@ const Header = () => {
             Login
           </button>
         ) : (
-          <button
-            className='button-primary'
-            onClick={() => {
-              localStorage.removeItem('token');
-              refetch();
-            }}
-          >
-            Logout
-          </button>
+          <div className='flex gap-2.5'>
+            <button
+              className='button-primary'
+              onClick={() => {
+                inpRef.current?.click();
+              }}
+            >
+              Upload file
+            </button>
+            <input
+              ref={inpRef}
+              type='file'
+              className='hidden'
+              onChange={e => {
+                if (!e.target.files || !e.target.files[0]) return;
+                console.log(e.target.files[0]);
+                debugger;
+                const formData = new FormData();
+
+                formData.append('name', e.target.files[0].name);
+                formData.append('file', e.target.files[0]);
+
+                upload(formData);
+              }}
+            />
+            <button
+              className='button-primary'
+              onClick={() => {
+                localStorage.removeItem('token');
+                refetch();
+              }}
+            >
+              Logout
+            </button>
+          </div>
         )}
       </div>
       <AuthForm setIsOpen={setIsOpen} isOpen={isOpen} />

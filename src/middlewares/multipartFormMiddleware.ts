@@ -11,6 +11,12 @@ export const parseMultipartForm = async (
   res: NextApiResponse,
   next: any
 ) => {
+  await NextCors(req, res, {
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    origin: '*',
+    optionsSuccessStatus: 200,
+  });
+
   const contentType = req.headers['content-type'];
   if (contentType && contentType.indexOf('multipart/form-data') !== -1) {
     form.parse(req, (err, fields, files) => {

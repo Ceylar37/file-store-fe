@@ -27,7 +27,17 @@ export const fsApi = createApi({
       query: id => `directoryContent/${id}`,
       providesTags: (result, error, id) => [{ type: 'dir', id }],
     }),
+    uploadFile: build.mutation({
+      query: payload => ({
+        url: '/uploadFile',
+        method: 'POST',
+        body: payload,
+      }),
+      transformErrorResponse: response => {
+        return response.data;
+      },
+    }),
   }),
 });
 
-export const { useMyFilesQuery } = fsApi;
+export const { useMyFilesQuery, useUploadFileMutation } = fsApi;
