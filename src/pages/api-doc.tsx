@@ -18,7 +18,7 @@ export const getStaticProps: GetStaticProps = async () => {
       info: {
         title: 'NextJS Swagger',
         description:
-          '<h2><b>base url: https://file-store-fe.vercel.app/api/</b></h2>',
+          '<h2><b>base url: https://file-store-fe-i3vo.vercel.app/api/</b></h2>',
       },
     },
     apiFolder: 'src/pages/api',
