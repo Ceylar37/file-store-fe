@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { MongoGridFS } from 'mongo-gridfs';
-import mongoose, { PipelineStage, connect } from 'mongoose';
+import mongoose, { PipelineStage } from 'mongoose';
 import { Readable } from 'stream';
 
 import { CreateDirectoryDto } from './dto/createDirectory';

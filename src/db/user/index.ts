@@ -25,6 +25,7 @@ const findByLogin = async (login: string): Promise<UserDto | undefined> => {
 };
 
 const create = async (dto: UserCredsDto): Promise<UserDto> => {
+  await dbConnect();
   const newUser = new userModel(dto);
   const createdUser = await newUser.save();
   return {
@@ -36,10 +37,12 @@ const create = async (dto: UserCredsDto): Promise<UserDto> => {
 };
 
 const updateToken = async ({ token, userId }: ChangeTokenDto) => {
+  await dbConnect();
   return userModel.findByIdAndUpdate(userId, { token });
 };
 
 const findOne = async (id: string): Promise<UserDto | undefined> => {
+  await dbConnect();
   const userFormDB = await userModel.findById(id);
   if (!userFormDB) return undefined;
   return {
