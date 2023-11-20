@@ -75,6 +75,7 @@ export default async function handler(
   }
 
   const user = await authMiddleware(req, res);
+  console.log(authMiddleware);
   if (!user) {
     return;
   }
