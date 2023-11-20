@@ -1,10 +1,11 @@
-import methodMiddleware from '@middlewares/methodMiddleware';
-import jwt from 'jsonwebtoken';
-import { NextApiRequest, NextApiResponse } from 'next';
-import NextCors from 'nextjs-cors';
+import methodMiddleware from '@middlewares/methodMiddleware'
+import jwt from 'jsonwebtoken'
+import { NextApiRequest, NextApiResponse } from 'next'
+import NextCors from 'nextjs-cors'
 
-import fsService from '../../../../../../db/fs';
-import userService from '../../../../../../db/user';
+import dbConnect from 'src/db/dbConnect'
+import fsService from '../../../../../../db/fs'
+import userService from '../../../../../../db/user'
 
 if (!process.env.SECRET) {
   throw new Error('Define the SECRET environment variable');
@@ -63,6 +64,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await dbConnect();
   await NextCors(req, res, {
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     origin: '*',

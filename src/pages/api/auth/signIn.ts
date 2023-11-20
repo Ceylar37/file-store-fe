@@ -1,10 +1,11 @@
-import * as bcrypt from 'bcrypt';
-import { NextApiRequest, NextApiResponse } from 'next';
-import NextCors from 'nextjs-cors';
+import * as bcrypt from 'bcrypt'
+import { NextApiRequest, NextApiResponse } from 'next'
+import NextCors from 'nextjs-cors'
 
-import userService from '../../../db/user';
-import bodyMiddleware from '../../../middlewares/bodyMiddleware';
-import methodMiddleware from '../../../middlewares/methodMiddleware';
+import dbConnect from 'src/db/dbConnect'
+import userService from '../../../db/user'
+import bodyMiddleware from '../../../middlewares/bodyMiddleware'
+import methodMiddleware from '../../../middlewares/methodMiddleware'
 
 /**
  * @swagger
@@ -58,6 +59,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await dbConnect();
   await NextCors(req, res, {
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     origin: '*',

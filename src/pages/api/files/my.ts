@@ -1,9 +1,10 @@
-import authMiddleware from '@middlewares/authMiddleware';
-import methodMiddleware from '@middlewares/methodMiddleware';
-import { NextApiRequest, NextApiResponse } from 'next';
-import NextCors from 'nextjs-cors';
+import authMiddleware from '@middlewares/authMiddleware'
+import methodMiddleware from '@middlewares/methodMiddleware'
+import { NextApiRequest, NextApiResponse } from 'next'
+import NextCors from 'nextjs-cors'
 
-import fsService from '../../../db/fs';
+import dbConnect from 'src/db/dbConnect'
+import fsService from '../../../db/fs'
 
 /**
  * @swagger
@@ -62,6 +63,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await dbConnect();  
   await NextCors(req, res, {
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     origin: '*',

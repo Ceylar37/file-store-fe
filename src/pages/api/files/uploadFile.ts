@@ -1,10 +1,11 @@
-import authMiddleware from '@middlewares/authMiddleware';
-import multipartFormMiddleware from '@middlewares/multipartFormMiddleware';
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
-import NextCors from 'nextjs-cors';
+import authMiddleware from '@middlewares/authMiddleware'
+import multipartFormMiddleware from '@middlewares/multipartFormMiddleware'
+import { NextApiRequest, NextApiResponse } from 'next'
+import nextConnect from 'next-connect'
+import NextCors from 'nextjs-cors'
 
-import fsService from '../../../db/fs';
+import dbConnect from 'src/db/dbConnect'
+import fsService from '../../../db/fs'
 
 /**
  * @swagger
@@ -78,6 +79,7 @@ const handler = nextConnect();
 handler.use(multipartFormMiddleware);
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect();
   await NextCors(req, res, {
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     origin: '*',

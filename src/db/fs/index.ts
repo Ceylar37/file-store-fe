@@ -1,17 +1,17 @@
-import * as fs from 'fs';
-import { MongoGridFS } from 'mongo-gridfs';
-import mongoose, { PipelineStage } from 'mongoose';
-import { Readable } from 'stream';
+import * as fs from 'fs'
+import { MongoGridFS } from 'mongo-gridfs'
+import mongoose, { PipelineStage } from 'mongoose'
+import { Readable } from 'stream'
 
-import { CreateDirectoryDto } from './dto/createDirectory';
-import { CreateFileDto } from './dto/createFile';
-import { DirectoryDto } from './dto/directory';
-import { FileDto } from './dto/file';
-import { ReadFileDto } from './dto/readFile';
-import { ReadableFileDto } from './dto/readableFile';
-import { UserDirectoryDto } from './dto/userDirectory';
-import directoryModel from './models/directory';
-import fileInfoModel from './models/fileInfo';
+import { CreateDirectoryDto } from './dto/createDirectory'
+import { CreateFileDto } from './dto/createFile'
+import { DirectoryDto } from './dto/directory'
+import { FileDto } from './dto/file'
+import { ReadFileDto } from './dto/readFile'
+import { ReadableFileDto } from './dto/readableFile'
+import { UserDirectoryDto } from './dto/userDirectory'
+import directoryModel from './models/directory'
+import fileInfoModel from './models/fileInfo'
 
 const createDirectory = async (
   dto: CreateDirectoryDto
